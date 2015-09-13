@@ -44,10 +44,13 @@ class MinMaxUnit( Model ):
       s.mux_gt.out,    s.out_max
     )
     s.connect_pairs(
-      s.mux_lt.sel,    s.lt_comp.out,
-      s.mux_lt.in_[1], s.in0,
-      s.mux_lt.in_[0], s.in1,
+      s.mux_lt.in_[0], s.in0,
+      s.mux_lt.in_[1], s.in1,
       s.mux_lt.out,    s.out_min
     )
+
+    @s.combinational
+    def min_max_comb():
+      s.mux_lt.sel.value = ~s.lt_comp.out.value
 
 
